@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'web_checker/http'
+require 'service/http'
 require 'net/http'
 
 describe WebChecker::Http do
@@ -18,26 +18,28 @@ describe WebChecker::Http do
   context 'accessible?' do
     it 'true for 2xx responses' do
       expect_any_instance_of(Net::HTTP).to receive(:request).and_return(Net::HTTPSuccess.new('1.1', '200', 'Ok'))
-      expect(WebChecker::Http.new('http://yandex.ru').accessible?).to eq true
+      expect(WebChecker::Http.new('http://yandex.ru').accessible?).to be_truthy
     end
 
     it 'handle redirects correctly' do
-      expect(WebChecker::Http.new('http://yandex.ru').accessible?).to eq true
+      expect(WebChecker::Http.new('http://yandex.ru', 0).accessible?).to be_falsy
+      expect(WebChecker::Http.new('http://yandex.ru', 1).accessible?).to be_falsy
+      expect(WebChecker::Http.new('http://yandex.ru', 2).accessible?).to be_truthy
     end
 
     it 'false for 4xx responses' do
       expect_any_instance_of(Net::HTTP).to receive(:request).and_return(Net::HTTPClientError.new('1.1', '404', 'Not found'))
-      expect(WebChecker::Http.new('http://yandex.ru/fake').accessible?).to eq false
+      expect(WebChecker::Http.new('http://yandex.ru/fake').accessible?).to be_falsy
     end
 
     it 'false for 5xx responses' do
       expect_any_instance_of(Net::HTTP).to receive(:request).and_return(Net::HTTPServerError.new('1.1', '500', 'Internal Server Error'))
-      expect(WebChecker::Http.new('http://yandex.ru/fake').accessible?).to eq false
+      expect(WebChecker::Http.new('http://yandex.ru/fake').accessible?).to be_falsy
     end
 
-    it 'should be false if network down' do
+    it 'false if network down' do
       expect_any_instance_of(Net::HTTP).to receive(:connect).and_raise(SocketError)
-      expect(WebChecker::Http.new('http://yandex.ru').accessible?).to eq false
+      expect(WebChecker::Http.new('http://yandex.ru').accessible?).to be_falsy
     end
   end
 

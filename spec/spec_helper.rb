@@ -1,5 +1,3 @@
-require 'web_checker'
-
 require 'bundler'
 Bundler.setup
 

@@ -2,9 +2,6 @@ require 'net/http'
 require 'whois'
 
 module WebChecker
-  #
-  # Not a HTTP URI.
-  #
 
   class NotHttpURIError < StandardError; end
   class InvalidHostError < StandardError; end
