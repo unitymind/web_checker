@@ -1,6 +1,6 @@
 # WebChecker
 
-TODO: Write a gem description
+A simple service for checking a availability of web resource
 
 ## Installation
 
@@ -18,7 +18,22 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    web_checker start --email=Email for notifications --url=Url for monitoring
+
+    Options:
+      --url=Url for monitoring
+      --email=Email for notifications
+      [--delivery-method=Delivery email method]
+                                                              # Default: sendmail
+      [--twilio=Use twilio for SMS notifications], [--no-twilio]
+      [--phone=Mobile phone number for SMS notifications]
+      [--twilio-sid=Twilio sid value]
+      [--twilio-token=Twilio token value]
+      [--twilio-from=Twilio from value]
+      [--threshold=Attempts threshold for notifications]
+                                                              # Default: ["5", "10", "50", "100", "500"]
+      [--refresh-rate=Refresh rate for checking in seconds]
+                                                              # Default: 5
 
 ## Contributing
 
