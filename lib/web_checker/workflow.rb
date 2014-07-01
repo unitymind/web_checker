@@ -4,6 +4,8 @@ require 'eventmachine'
 
 module WebChecker
   class Workflow
+    attr_reader :checker, :attempts
+
     def initialize(options)
       @options = options.dup
       WebChecker::Notifications.instance.setup(@options)

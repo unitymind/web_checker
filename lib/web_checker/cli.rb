@@ -47,7 +47,7 @@ module WebChecker
     method_option :threshold,
                   type: :array,
                   default: %w{5 10 50 100 500},
-                  banner: 'Attempts threshold for warning notify'
+                  banner: 'Attempts threshold for notifications'
 
     method_option :refresh_rate,
                   type: :numeric,

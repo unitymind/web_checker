@@ -2,11 +2,12 @@ require 'singleton'
 require 'twilio-ruby'
 require 'mail'
 require 'socket'
+require 'mail'
 
 module WebChecker
   class Notifications
     include Singleton
-    attr_accessor :options
+    attr_reader :twilio
 
     def setup(options)
       @options = options
@@ -36,7 +37,7 @@ module WebChecker
           mail.from = "no-reply@#{Socket.gethostname}"
           mail.to = @options['email']
           mail.subject = "[Web checker] notification about #{@options['url']}"
-          mail.delivery_method @options['delivery_method'].to_sym
+          mail.delivery_method(@options['delivery_method'].to_sym) if @options.has_key?('delivery_method')
           mail.deliver
           true
         rescue StandardError

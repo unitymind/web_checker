@@ -1,5 +1,4 @@
-require 'spec_helper'
-require 'service/http'
+require 'web_checker/http'
 require 'net/http'
 
 describe WebChecker::Http do
