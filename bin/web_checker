@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'daemons'
+require 'web_checker'
+require 'web_checker/cli'
 
-Daemons.run('web_checker_cli')
+WebChecker::CLI.start

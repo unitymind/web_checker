@@ -21,10 +21,10 @@ module WebChecker
       results.include?(false) ? false : true
     end
 
-    def notify_broken(attempts)
+    def notify_broken(count)
       results = []
-      results.push(notify_via_email(build_broken_message(attempts)))
-      results.push(notify_via_twilio(build_broken_message(attempts))) if @twilio
+      results.push(notify_via_email(build_broken_message(count)))
+      results.push(notify_via_twilio(build_broken_message(count))) if @twilio
       results.include?(false) ? false : true
     end
 
@@ -35,8 +35,7 @@ module WebChecker
           mail.body = message
           mail.from = "no-reply@#{Socket.gethostname}"
           mail.to = @options['email']
-          mail.subject = "[Web checker] notify about #{@options['url']}"
-
+          mail.subject = "[Web checker] notification about #{@options['url']}"
           mail.delivery_method @options['delivery_method'].to_sym
           mail.deliver
           true
@@ -58,8 +57,8 @@ module WebChecker
         end
       end
 
-      def build_broken_message(attempts)
-        "Your url #{@options['url']} is broken after #{attempts} attempts"
+      def build_broken_message(count)
+        "Your url #{@options['url']} is broken after #{count} attempts"
       end
   end
 end

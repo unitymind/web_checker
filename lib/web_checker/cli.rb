@@ -1,6 +1,6 @@
 require 'thor'
-require 'service/notifications'
-require 'service/runner'
+require 'web_checker/workflow'
+require 'eventmachine'
 
 module WebChecker
   class CLI < Thor
@@ -55,8 +55,27 @@ module WebChecker
                   banner: 'Refresh rate for checking in seconds'
 
     def start
-      WebChecker::Notifications.instance.setup(options)
-      WebChecker::Runner.new(options).run
+      trap("INT") { self.stop }
+
+      begin
+        @checker = WebChecker::Workflow.new(options)
+      rescue WebChecker::NotHttpURIError, WebChecker::InvalidHostError => e
+        puts "--url error. #{e.message}"
+        exit
+      end
+
+      EventMachine.run do
+        @checker.run
+      end
     end
+
+    no_commands do
+      def stop
+        @checker.cancel
+        EventMachine.stop
+        exit
+      end
+    end
+
   end
 end

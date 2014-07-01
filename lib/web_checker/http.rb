@@ -12,7 +12,7 @@ module WebChecker
       @uri_str = "http://#{@uri_str}" unless @uri_str.include?('://')
       @uri = URI(@uri_str)
       raise NotHttpURIError, "Not HTTP URI: #{@uri_str}" unless @uri.scheme.include?('http')
-      raise InvalidHostError, 'Domain or host not exists' unless domain_exists?(@uri.host)
+      raise InvalidHostError, "Domain or host does not exists: #{@uri.host}" unless domain_exists?(@uri.host)
     end
 
     def accessible?
