@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = WebChecker::VERSION
   spec.authors       = ['Vitaliy V. Shopov']
   spec.email         = ['vitaliy.shopov@cleawing.com']
-  spec.summary       = %q{A simple service for checking a availability of web resource}
-  spec.description   = %q{A simple service for checking a availability of web resource}
+  spec.summary       = %q{A simple service for checking the availability of web resource}
+  spec.description   = %q{A simple service for checking the availability of web resource}
   spec.homepage      = 'https://github.com/unitymind/web_checker'
   spec.license       = 'MIT'
 

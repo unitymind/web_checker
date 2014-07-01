@@ -1,6 +1,6 @@
 # WebChecker
 
-A simple service for checking a availability of web resource
+A simple service for checking the availability of web resource
 
 ## Installation
 
