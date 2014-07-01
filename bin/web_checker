@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
 require 'web_checker'
-require 'web_checker/cli'
 
 WebChecker::CLI.start
